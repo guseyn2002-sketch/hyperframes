@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@500;700;800;900&display=block" rel="stylesheet" />
+<style>
+  :root{--bg:#0f0f2e;--card:#1a1946;--card2:#211f55;--ink:#f6ead2;--mute:#b9b3d9;--gold:#fcb54c;--line:#3a3775}
+  *{box-sizing:border-box}
+  html,body{margin:0;width:2400px;height:1800px;background:var(--bg);color:var(--ink);font-family:Nunito,sans-serif}
+  .page{width:2400px;height:1800px;padding:36px 40px;display:grid;grid-template-columns:780px 1fr 1fr;grid-template-rows:120px 430px 770px 1fr;gap:22px;
+    background:radial-gradient(900px 500px at 75% 0%,#2b2466 0%,transparent 70%),radial-gradient(800px 600px at 0% 100%,#221d55 0%,transparent 70%),var(--bg)}
+  header{grid-column:1/-1;display:flex;align-items:flex-end;justify-content:space-between;border-bottom:2px solid var(--line);padding-bottom:16px}
+  h1{font-family:Fredoka,sans-serif;font-weight:700;font-size:78px;margin:0;line-height:1;letter-spacing:.5px}
+  h1 span{color:var(--gold)}
+  .tag{font-family:Nunito;font-weight:800;font-size:30px;color:#ffd58a;margin-left:22px}
+  .meta{text-align:right;color:var(--mute);font-size:22px;line-height:1.45}
+  .meta b{color:var(--ink)}
+  .card{background:linear-gradient(180deg,var(--card2),var(--card));border:1.5px solid var(--line);border-radius:26px;padding:20px 24px;position:relative;overflow:hidden}
+  .card h2{font-family:Nunito;font-weight:900;font-size:30px;margin:0 0 4px;display:flex;align-items:center;gap:12px}
+  .card h2 .n{width:38px;height:38px;border-radius:50%;background:var(--gold);color:#2a1d0a;display:grid;place-items:center;font-size:22px}
+  .sub{color:var(--mute);font-size:19px;margin:0 0 8px}
+  svg{display:block}
+  .row{display:flex;justify-content:space-around;align-items:flex-end}
+  .lab{font-size:19px;color:var(--mute);text-align:center;margin-top:4px;font-weight:700}
+  .note{font-size:20px;line-height:1.4}
+  .note b{color:#ffd58a}
+  ul{margin:6px 0 0;padding-left:22px}
+  li{font-size:20.5px;line-height:1.42;margin-bottom:5px}
+  li b{color:#ffd58a}
+  .sw{display:grid;grid-template-columns:repeat(4,1fr);gap:12px 14px;margin-top:10px}
+  .s{display:flex;align-items:center;gap:10px}
+  .s i{width:46px;height:46px;border-radius:12px;flex:none;border:1.5px solid rgba(255,255,255,.18)}
+  .s div{font-size:16px;line-height:1.2;color:var(--mute)}
+  .s div b{display:block;color:var(--ink);font-size:17px}
+  .s div code{font-family:"JetBrains Mono";font-size:15px}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <linearGradient id="body" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fdf0d4"/><stop offset=".55" stop-color="#f3e2c5"/><stop offset="1" stop-color="#e6d3b1"/></linearGradient>
+    <radialGradient id="glow"><stop offset="0" stop-color="#ffd27a" stop-opacity=".85"/><stop offset=".4" stop-color="#ffb84c" stop-opacity=".3"/><stop offset="1" stop-color="#ffb84c" stop-opacity="0"/></radialGradient>
+    <radialGradient id="bulb" cx=".4" cy=".35"><stop offset="0" stop-color="#ffe7a8"/><stop offset=".6" stop-color="#fcb54c"/><stop offset="1" stop-color="#ee9a2c"/></radialGradient>
+    <radialGradient id="lampg"><stop offset="0" stop-color="#ffe3a0" stop-opacity=".8"/><stop offset="1" stop-color="#ffcf7a" stop-opacity="0"/></radialGradient>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#131339"/><stop offset="1" stop-color="#2a225e"/></linearGradient>
+    <linearGradient id="skySun" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3f5f8f"/><stop offset=".6" stop-color="#8f8fb0"/><stop offset="1" stop-color="#e2a98f"/></linearGradient>
+    <linearGradient id="skyDay" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4f8fc6"/><stop offset="1" stop-color="#9cc3d6"/></linearGradient>
+    <linearGradient id="planet" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5a78ad"/><stop offset=".35" stop-color="#4d689e"/><stop offset="1" stop-color="#33386f"/></linearGradient>
+    <linearGradient id="planetDay" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6ea6a0"/><stop offset="1" stop-color="#3f6e7c"/></linearGradient>
+    <linearGradient id="tail" x1="1" y1="0" x2="0" y2="0"><stop offset="0" stop-color="#e9fbff"/><stop offset=".45" stop-color="#8fd8f0" stop-opacity=".8"/><stop offset="1" stop-color="#8fd8f0" stop-opacity="0"/></linearGradient>
+    <filter id="blur" x="-100%" y="-100%" width="300%" height="300%"><feGaussianBlur stdDeviation="30"/></filter>
+    <path id="star5" d="M0 -30 L8.5 -10 L29 -9.5 L13 4 L18.5 25 L0 13 L-18.5 25 L-13 4 L-29 -9.5 L-8.5 -10 Z"/>
+    <path id="spark" d="M0 -10 Q1.5 -1.5 10 0 Q1.5 1.5 0 10 Q-1.5 1.5 -10 0 Q-1.5 -1.5 0 -10 Z"/>
+    <!-- Lumo base: teardrop, origin at ground between feet -->
+    <g id="lumoBodyShape">
+      <rect x="-32" y="-30" width="20" height="32" rx="9" fill="#dac7a3"/>
+      <rect x="12" y="-30" width="20" height="32" rx="9" fill="#dac7a3"/>
+      <path d="M0 -250 C22 -215 88 -160 88 -96 C88 -44 50 -14 0 -14 C-50 -14 -88 -44 -88 -96 C-88 -160 -22 -215 0 -250 Z" fill="url(#body)"/>
+      <path d="M-70 -70 C-58 -38 -30 -24 0 -22 C-40 -30 -64 -50 -70 -70 Z" fill="#d9c4a2" opacity=".5"/>
+    </g>
+    <g id="bulbG">
+      <circle cx="0" cy="-268" r="70" fill="url(#glow)"/>
+      <rect x="-2" y="-258" width="4" height="12" fill="#e6b36a"/>
+      <circle cx="0" cy="-270" r="15" fill="url(#bulb)"/>
+      <circle cx="-5" cy="-275" r="4" fill="#fff4d6" opacity=".9"/>
+    </g>
+    <g id="cheeks"><ellipse cx="-44" cy="-86" rx="12" ry="7" fill="#f1b3a8"/><ellipse cx="44" cy="-86" rx="12" ry="7" fill="#f1b3a8"/></g>
+    <g id="lumoFront">
+      <use href="#bulbG"/><use href="#lumoBodyShape"/><use href="#cheeks"/>
+      <ellipse cx="-20" cy="-104" rx="8.5" ry="7" fill="#292340"/><ellipse cx="20" cy="-104" rx="8.5" ry="7" fill="#292340"/>
+    </g>
+    <g id="lumoMini"><use href="#lumoFront"/></g>
+  </defs>
+</svg>
+
+<div class="page">
+  <header>
+    <div style="display:flex;align-items:baseline">
+      <h1>Lumo <span>Loops</span></h1><div class="tag">разбор стиля · модель-лист</div>
+    </div>
+    <div class="meta"><b>@Lumo_Loops</b> · 108 подписчиков · 120 видео · новый эпизод каждый день 🌙<br/>Shorts 9:16 · 13–15 с · без слов · бесшовная петля · плоская 2D-векторная графика с мягким свечением</div>
+  </header>
+
+  <!-- 1. Hero + anatomy -->
+  <section class="card" style="grid-row:2/4">
+    <h2><span class="n">1</span>Lumo — главный герой</h2>
+    <p class="sub">Маленький смотритель фонарей. Живёт на планете размером с дом.</p>
+    <svg width="730" height="1000" viewBox="0 -240 730 1000">
+      <rect x="0" y="-240" width="730" height="1000" rx="20" fill="url(#sky)"/>
+      <g transform="translate(600 -130) rotate(-20)"><path d="M0 -50 A50 50 0 1 0 0 50 A62 62 0 0 1 0 -50 Z" fill="#fff1c2"/></g>
+      <g fill="#fff" opacity=".8"><circle cx="80" cy="-180" r="2"/><circle cx="260" cy="-120" r="1.6"/><circle cx="420" cy="-150" r="2.2"/><circle cx="140" cy="-60" r="1.5"/><circle cx="480" cy="-40" r="1.8"/><circle cx="40" cy="-20" r="1.4"/></g>
+      <ellipse cx="200" cy="200" rx="260" ry="140" fill="#3a2c78" opacity=".6" filter="url(#blur)"/>
+      <g fill="#fff" opacity=".8"><circle cx="60" cy="60" r="2"/><circle cx="640" cy="90" r="2.5"/><circle cx="520" cy="40" r="1.6"/><circle cx="120" cy="300" r="1.8"/><circle cx="660" cy="300" r="2"/><circle cx="420" cy="130" r="1.5"/><circle cx="300" cy="60" r="2"/><circle cx="60" cy="500" r="1.6"/><circle cx="690" cy="480" r="1.6"/></g>
+      <ellipse cx="365" cy="960" rx="520" ry="300" fill="url(#planet)"/>
+      <path d="M-155 960 A520 300 0 0 1 885 960" fill="none" stroke="#8aa6d6" stroke-opacity=".5" stroke-width="3"/>
+      <g transform="translate(365 676) scale(2)"><use href="#lumoFront"/></g>
+      <!-- callouts -->
+      <g font-family="Nunito" font-size="20" font-weight="800" fill="#f6ead2">
+        <g stroke="#ffd58a" stroke-width="2" fill="none"><path d="M395 140 L520 110"/><path d="M420 330 L540 300"/><path d="M405 470 L540 470"/><path d="M290 506 L170 540"/><path d="M335 668 L190 700"/></g>
+        <g fill="#ffd58a"><circle cx="395" cy="140" r="5"/><circle cx="420" cy="330" r="5"/><circle cx="405" cy="470" r="5"/><circle cx="290" cy="506" r="5"/><circle cx="335" cy="668" r="5"/></g>
+        <text x="526" y="104">Лампочка-огонёк</text><text x="526" y="128" font-weight="600" font-size="17" fill="#b9b3d9">тёплый ореол, «дышит»</text>
+        <text x="546" y="294">Тело-капля</text><text x="546" y="318" font-weight="600" font-size="17" fill="#b9b3d9">острая макушка,</text><text x="546" y="338" font-weight="600" font-size="17" fill="#b9b3d9">круглый низ, крем</text>
+        <text x="546" y="466">Глаза-овалы</text><text x="546" y="490" font-weight="600" font-size="17" fill="#b9b3d9">тёмные, без бликов</text><text x="546" y="510" font-weight="600" font-size="17" fill="#b9b3d9">рта нет</text>
+        <text x="30" y="546">Румянец</text><text x="30" y="570" font-weight="600" font-size="17" fill="#b9b3d9">персиковые овалы</text>
+        <text x="30" y="704">Ножки-столбики</text><text x="30" y="728" font-weight="600" font-size="17" fill="#b9b3d9">чуть темнее тела</text>
+      </g>
+      <text x="30" y="-200" font-family="Nunito" font-size="19" font-weight="700" fill="#b9b3d9">Пропорции: лампочка ≈ 1/8 тела · ширина ≈ 0.7 высоты</text>
+    </svg>
+    <p class="note" style="margin:12px 2px 0">Ручки — маленькие кремовые <b>«культяпки»</b>, появляются только когда Lumo что-то держит (зефир, половник, мяч). Движения мягкие, с лёгким покачиванием; свечение лампочки — главный «акцент» кадра.</p>
+  </section>
+
+  <!-- 2. Turnaround + expressions -->
+  <section class="card" style="grid-column:2/4">
+    <h2><span class="n">2</span>Разворот и эмоции</h2>
+    <p class="sub">Минимум черт — эмоция передаётся формой глаз, румянцем и яркостью лампочки.</p>
+    <div class="row" style="margin-top:6px">
+      <div><svg width="180" height="250" viewBox="-110 -330 220 340"><use href="#lumoFront"/></svg><div class="lab">Анфас</div></div>
+      <div><svg width="180" height="250" viewBox="-110 -330 220 340"><use href="#bulbG"/><use href="#lumoBodyShape"/><ellipse cx="-30" cy="-86" rx="9" ry="6.5" fill="#f1b3a8"/><ellipse cx="58" cy="-86" rx="9" ry="6.5" fill="#f1b3a8" opacity=".9"/><ellipse cx="-2" cy="-104" rx="8" ry="7" fill="#292340"/><ellipse cx="38" cy="-104" rx="7" ry="7" fill="#292340"/><ellipse cx="88" cy="-70" rx="11" ry="8" fill="#f3e2c5"/></svg><div class="lab">¾ + ручка</div></div>
+      <div><svg width="180" height="250" viewBox="-110 -330 220 340"><use href="#bulbG"/><use href="#lumoBodyShape"/><ellipse cx="70" cy="-86" rx="8" ry="6" fill="#f1b3a8"/><ellipse cx="66" cy="-104" rx="6" ry="7" fill="#292340"/></svg><div class="lab">Профиль</div></div>
+      <div><svg width="180" height="250" viewBox="-110 -330 220 340"><use href="#bulbG"/><use href="#lumoBodyShape"/></svg><div class="lab">Спина</div></div>
+      <div style="width:2px;height:240px;background:var(--line)"></div>
+      <div><svg width="150" height="250" viewBox="-110 -330 220 340"><use href="#bulbG"/><use href="#lumoBodyShape"/><use href="#cheeks"/><path d="M-30 -102 Q-20 -114 -10 -102 M10 -102 Q20 -114 30 -102" stroke="#292340" stroke-width="6" fill="none" stroke-linecap="round"/></svg><div class="lab">Радость</div></div>
+      <div><svg width="150" height="250" viewBox="-110 -330 220 340"><use href="#bulbG"/><circle cx="0" cy="-270" r="105" fill="url(#glow)"/><use href="#lumoBodyShape"/><use href="#cheeks"/><ellipse cx="-20" cy="-106" rx="9" ry="11" fill="#292340"/><ellipse cx="20" cy="-106" rx="9" ry="11" fill="#292340"/><ellipse cx="0" cy="-80" rx="5" ry="6" fill="#292340"/></svg><div class="lab">Удивление</div></div>
+      <div><svg width="150" height="250" viewBox="-110 -330 220 340"><g opacity=".55"><use href="#bulbG"/></g><use href="#lumoBodyShape"/><use href="#cheeks"/><path d="M-29 -102 H-11 M11 -102 H29" stroke="#292340" stroke-width="6" stroke-linecap="round"/><text x="50" y="-180" font-family="Fredoka" font-size="34" fill="#b9b3d9">z</text></svg><div class="lab">Сонный</div></div>
+      <div><svg width="150" height="250" viewBox="-110 -330 220 340"><use href="#bulbG"/><use href="#lumoBodyShape"/><ellipse cx="-44" cy="-86" rx="16" ry="9" fill="#f39a8e"/><ellipse cx="44" cy="-86" rx="16" ry="9" fill="#f39a8e"/><ellipse cx="-20" cy="-104" rx="8.5" ry="7" fill="#292340"/><ellipse cx="20" cy="-104" rx="8.5" ry="7" fill="#292340"/><use href="#spark" fill="#ffe39a" transform="translate(-80 -170) scale(1.2)"/><use href="#spark" fill="#ffe39a" transform="translate(84 -150)"/></svg><div class="lab">Смущение</div></div>
+    </div>
+    <p class="note" style="margin:10px 4px 0">Правило: <b>ярче лампочка = сильнее эмоция</b>. Тело почти не деформируется — только мягкий squash &amp; stretch при прыжке и «дыхание».</p>
+  </section>
+
+  <!-- 3. Background -->
+  <section class="card" style="grid-column:2/3">
+    <h2><span class="n">3</span>Фон — «крошечная планета»</h2>
+    <p class="sub">Один и тот же статичный сет во всех эпизодах.</p>
+    <svg width="700" height="380" viewBox="0 30 740 410">
+      <rect width="740" height="440" rx="18" fill="url(#sky)"/>
+      <ellipse cx="260" cy="110" rx="260" ry="110" fill="#3a2c78" opacity=".7" filter="url(#blur)"/>
+      <ellipse cx="620" cy="200" rx="160" ry="90" fill="#33296e" opacity=".6" filter="url(#blur)"/>
+      <g fill="#fff"><circle cx="40" cy="40" r="2"/><circle cx="160" cy="90" r="1.5"/><circle cx="330" cy="30" r="2"/><circle cx="460" cy="70" r="1.6"/><circle cx="600" cy="40" r="2.2"/><circle cx="700" cy="120" r="1.6"/><circle cx="90" cy="190" r="1.6"/><circle cx="380" cy="160" r="1.4"/><circle cx="540" cy="150" r="1.8"/><circle cx="250" cy="220" r="1.4"/></g>
+      <!-- lamp post -->
+      <circle cx="120" cy="250" r="60" fill="url(#lampg)"/>
+      <rect x="116" y="252" width="8" height="140" fill="#373459"/>
+      <rect x="104" y="232" width="32" height="36" rx="5" fill="#e5c184"/><rect x="100" y="226" width="40" height="8" rx="3" fill="#373459"/>
+      <!-- tree -->
+      <rect x="640" y="300" width="10" height="100" rx="4" fill="#2f2c50"/>
+      <circle cx="628" cy="290" r="44" fill="#3d8077"/><circle cx="668" cy="280" r="46" fill="#4c9589"/><circle cx="700" cy="300" r="34" fill="#3d8077"/>
+      <!-- planet -->
+      <ellipse cx="370" cy="700" rx="560" ry="330" fill="url(#planet)"/>
+      <path d="M-190 700 A560 330 0 0 1 930 700" fill="none" stroke="#8aa6d6" stroke-opacity=".55" stroke-width="2.5"/>
+      <!-- pond -->
+      <ellipse cx="560" cy="398" rx="78" ry="16" fill="#153c54" stroke="#6f9fd0" stroke-opacity=".7" stroke-width="2"/>
+      <ellipse cx="545" cy="396" rx="30" ry="4" fill="none" stroke="#9fc4ea" stroke-opacity=".5" stroke-width="1.5"/>
+      <g transform="translate(300 386) scale(.42)"><use href="#lumoFront"/></g>
+      <g font-family="Nunito" font-weight="800" font-size="16" fill="#ffd58a">
+        <text x="20" y="420">фонарь · слева</text><text x="270" y="420">Lumo · слева от центра</text><text x="490" y="438">пруд</text><text x="620" y="232">дерево · справа</text><text x="200" y="130" fill="#d5cdf7">фиолетовая туманность</text>
+      </g>
+    </svg>
+    <div class="row" style="margin-top:12px;gap:12px">
+      <div><svg width="216" height="170" viewBox="0 0 230 180"><rect width="230" height="180" rx="12" fill="url(#sky)"/><ellipse cx="115" cy="330" rx="230" ry="190" fill="url(#planet)"/><rect x="34" y="70" width="5" height="80" fill="#373459"/><rect x="28" y="62" width="17" height="18" rx="3" fill="#e5c184"/><circle cx="196" cy="118" r="22" fill="#4c9589"/><rect x="194" y="130" width="4" height="22" fill="#2f2c50"/><g transform="translate(100 146) scale(.22)"><use href="#lumoFront"/></g></svg><div class="lab">Ночь — основной</div></div>
+      <div><svg width="216" height="170" viewBox="0 0 230 180"><rect width="230" height="180" rx="12" fill="url(#skySun)"/><circle cx="170" cy="60" r="22" fill="#f5b26b" opacity=".8"/><ellipse cx="115" cy="330" rx="230" ry="190" fill="#4b6694"/><rect x="34" y="70" width="5" height="80" fill="#373459"/><rect x="28" y="62" width="17" height="18" rx="3" fill="#e5c184"/><circle cx="196" cy="118" r="22" fill="#4c9589"/><rect x="194" y="130" width="4" height="22" fill="#2f2c50"/><g transform="translate(100 146) scale(.22)"><use href="#lumoFront"/></g></svg><div class="lab">Закат (Saturn)</div></div>
+      <div><svg width="216" height="170" viewBox="0 0 230 180"><rect width="230" height="180" rx="12" fill="url(#skyDay)"/><ellipse cx="115" cy="330" rx="230" ry="190" fill="url(#planetDay)"/><rect x="34" y="70" width="5" height="80" fill="#373459"/><rect x="28" y="62" width="17" height="18" rx="3" fill="#e5c184"/><circle cx="196" cy="118" r="22" fill="#4c9589"/><rect x="194" y="130" width="4" height="22" fill="#2f2c50"/><g transform="translate(100 146) scale(.22)"><use href="#lumoFront"/></g></svg><div class="lab">День (Rainbow)</div></div>
+    </div>
+  </section>
+
+  <!-- 4. Wisp & friends -->
+  <section class="card" style="grid-column:3/4">
+    <h2><span class="n">4</span>Wisp и друзья</h2>
+    <p class="sub">Второстепенные персонажи — тот же язык: круглые формы, точки-глаза, румянец.</p>
+    <svg width="700" height="470" viewBox="0 -100 740 497">
+      <rect y="-100" width="740" height="497" rx="18" fill="url(#sky)"/>
+      <ellipse cx="300" cy="-20" rx="240" ry="90" fill="#3a2c78" opacity=".7" filter="url(#blur)"/>
+      <g fill="#fff" opacity=".8"><circle cx="60" cy="-60" r="2"/><circle cx="200" cy="-80" r="1.5"/><circle cx="420" cy="-50" r="2"/><circle cx="660" cy="-70" r="1.8"/><circle cx="560" cy="0" r="1.4"/><circle cx="100" cy="40" r="1.6"/></g>
+      <g transform="translate(300 -10)" fill="none" stroke="#cfe0ff" stroke-opacity=".6" stroke-width="1.5"><path d="M0 -40 L-30 0 L-20 40 L20 40 L30 0 Z"/></g><g fill="#e8f0ff"><circle cx="300" cy="-50" r="3.5"/><circle cx="270" cy="-10" r="3.5"/><circle cx="280" cy="30" r="3.5"/><circle cx="320" cy="30" r="3.5"/><circle cx="330" cy="-10" r="3.5"/></g><text x="350" y="-40" font-family="Nunito" font-weight="800" font-size="17" fill="#f6ead2">Созвездия</text>
+      <!-- Wisp -->
+      <g transform="translate(250 140)">
+        <path d="M-10 -26 C-80 -30 -170 -10 -230 30 C-160 6 -80 10 -10 24 Z" fill="url(#tail)"/>
+        <use href="#spark" fill="#fff" transform="translate(-120 2) scale(.8)"/><use href="#spark" fill="#d6f3ff" transform="translate(-180 18) scale(.6)"/>
+        <circle r="48" fill="#bdeaff" opacity=".35" filter="url(#blur)"/>
+        <path d="M-22 -26 Q-34 -50 -12 -40 Z M18 -30 Q30 -54 8 -42 Z" fill="#eaf8ff" stroke="#eaf8ff" stroke-width="6" stroke-linejoin="round"/>
+        <circle r="32" fill="#ffffff"/>
+        <ellipse cx="-11" cy="-4" rx="5" ry="6" fill="#292340"/><ellipse cx="11" cy="-4" rx="5" ry="6" fill="#292340"/>
+        <circle cx="0" cy="8" r="4" fill="#fc9bb4"/>
+        <ellipse cx="-20" cy="10" rx="7" ry="4" fill="#fc9bb4" opacity=".6"/><ellipse cx="20" cy="10" rx="7" ry="4" fill="#fc9bb4" opacity=".6"/>
+      </g>
+      <text x="40" y="262" font-family="Nunito" font-weight="900" font-size="26" fill="#f6ead2">Wisp — щенок-комета</text>
+      <text x="40" y="286" font-family="Nunito" font-weight="700" font-size="16" fill="#b9b3d9">белая голова, голубой хвост-шлейф, розовый носик</text>
+      <!-- cloud -->
+      <g transform="translate(560 90)">
+        <path d="M-70 30 C-100 30 -100 -10 -70 -10 C-70 -50 -20 -60 0 -30 C20 -60 75 -45 65 -8 C100 -10 100 30 70 30 Z" fill="#ffffff"/>
+        <path d="M-20 4 Q-12 -4 -4 4 M8 4 Q16 -4 24 4" stroke="#7d6f9a" stroke-width="4" fill="none" stroke-linecap="round"/>
+        <ellipse cx="-30" cy="14" rx="8" ry="5" fill="#f6b3c0"/><ellipse cx="36" cy="14" rx="8" ry="5" fill="#f6b3c0"/>
+      </g>
+      <text x="500" y="168" font-family="Nunito" font-weight="800" font-size="17" fill="#f6ead2">Облачко</text>
+      <!-- star friend -->
+      <g transform="translate(470 230) scale(1.1)"><circle r="40" fill="url(#glow)"/><use href="#star5" fill="#ffd45e" stroke="#fff3c4" stroke-width="3" stroke-linejoin="round"/><circle cx="-6" cy="-3" r="2.6" fill="#5a3a2a"/><circle cx="6" cy="-3" r="2.6" fill="#5a3a2a"/></g>
+      <text x="520" y="236" font-family="Nunito" font-weight="800" font-size="17" fill="#f6ead2">Звёздочки</text>
+      <!-- sleepy tree -->
+      <g transform="translate(680 250)"><rect x="-4" y="-10" width="8" height="40" fill="#2f2c50"/><circle cx="0" cy="-34" r="34" fill="#4c9589"/><path d="M-14 -36 Q-9 -32 -4 -36 M4 -36 Q9 -32 14 -36" stroke="#1d3f45" stroke-width="3" fill="none" stroke-linecap="round"/></g>
+    </svg>
+    <p class="note" style="margin:10px 2px 0">Также: <b>сонное дерево</b> (Lumo его поливает), созвездия, светящийся олень из тумана. Wisp в кадре редко — появляется как «комета», которая пролетает.</p>
+  </section>
+
+  <!-- 5. Palette -->
+  <section class="card" style="grid-column:1/2">
+    <h2><span class="n">5</span>Палитра (снята с кадров)</h2>
+    <div class="sw">
+      <div class="s"><i style="background:#131339"></i><div><b>Небо верх</b><code>#131339</code></div></div>
+      <div class="s"><i style="background:#2a225e"></i><div><b>Небо низ</b><code>#2A225E</code></div></div>
+      <div class="s"><i style="background:#3a2c78"></i><div><b>Туманность</b><code>#3A2C78</code></div></div>
+      <div class="s"><i style="background:#4d689e"></i><div><b>Планета</b><code>#4D689E</code></div></div>
+      <div class="s"><i style="background:#f9e5c3"></i><div><b>Lumo тело</b><code>#F9E5C3</code></div></div>
+      <div class="s"><i style="background:#dac7a3"></i><div><b>Ножки / тень</b><code>#DAC7A3</code></div></div>
+      <div class="s"><i style="background:#fcb54c"></i><div><b>Лампочка</b><code>#FCB54C</code></div></div>
+      <div class="s"><i style="background:#f1b3a8"></i><div><b>Румянец</b><code>#F1B3A8</code></div></div>
+      <div class="s"><i style="background:#292340"></i><div><b>Глаза</b><code>#292340</code></div></div>
+      <div class="s"><i style="background:#4c9589"></i><div><b>Дерево</b><code>#4C9589</code></div></div>
+      <div class="s"><i style="background:#153c54"></i><div><b>Пруд</b><code>#153C54</code></div></div>
+      <div class="s"><i style="background:#e5c184"></i><div><b>Фонарь</b><code>#E5C184</code></div></div>
+    </div>
+  </section>
+
+  <!-- 6. Props -->
+  <section class="card" style="grid-column:2/3">
+    <h2><span class="n">6</span>Реквизит эпизодов</h2>
+    <div class="row" style="margin-top:10px">
+      <div><svg width="120" height="120" viewBox="-60 -60 120 120"><circle r="50" fill="url(#glow)"/><use href="#star5" fill="#ffd45e" stroke="#fff3c4" stroke-width="3" transform="scale(1.3)"/></svg><div class="lab">Звезда</div></div>
+      <div><svg width="120" height="120" viewBox="-60 -60 120 120"><path d="M-22 30 L22 30 L14 40 L-14 40 Z" fill="#6b4a3a"/><path d="M0 -40 C18 -16 26 4 18 22 C10 34 -10 34 -18 22 C-26 4 -18 -16 0 -40 Z" fill="#fa8a3c"/><path d="M0 -14 C9 0 12 10 8 20 C4 26 -4 26 -8 20 C-12 10 -9 0 0 -14 Z" fill="#fac959"/><use href="#spark" fill="#fff" transform="translate(0 12) scale(.8)"/></svg><div class="lab">Костёр</div></div>
+      <div><svg width="120" height="120" viewBox="-60 -60 120 120"><ellipse cx="0" cy="8" rx="44" ry="10" fill="#c9ccd8"/><path d="M-44 8 C-44 40 44 40 44 8 Z" fill="#2c2b44"/><ellipse cx="0" cy="8" rx="40" ry="8" fill="#f0e6c8"/><circle cx="-10" cy="-18" r="14" fill="#d8d9ec" opacity=".6"/><circle cx="8" cy="-34" r="11" fill="#d8d9ec" opacity=".45"/></svg><div class="lab">Котелок</div></div>
+      <div><svg width="120" height="120" viewBox="-60 -60 120 120"><circle cx="0" cy="-12" r="30" fill="#f6a057"/><path d="M-28 -18 Q0 -8 28 -18 M-22 2 Q0 10 22 2" stroke="#d97c32" stroke-width="3" fill="none"/><ellipse cx="0" cy="26" rx="26" ry="6" fill="none" stroke="#f08ab0" stroke-width="4"/><path d="M-24 28 L-14 50 M0 32 L0 52 M24 28 L14 50" stroke="#fff" stroke-width="2"/></svg><div class="lab">Мяч-Сатурн</div></div>
+      <div><svg width="120" height="120" viewBox="-60 -60 120 120"><g fill="none" stroke-width="7"><path d="M-46 40 A46 46 0 0 1 46 40" stroke="#f26b6b"/><path d="M-38 40 A38 38 0 0 1 38 40" stroke="#f7c35a"/><path d="M-30 40 A30 30 0 0 1 30 40" stroke="#7fd08a"/><path d="M-22 40 A22 22 0 0 1 22 40" stroke="#6aa8f0"/><path d="M-14 40 A14 14 0 0 1 14 40" stroke="#a684e0"/></g></svg><div class="lab">Радуга</div></div>
+    </div>
+  </section>
+
+  <!-- 7. Formula -->
+  <section class="card" style="grid-column:3/4">
+    <h2><span class="n">7</span>Формула эпизода</h2>
+    <ul>
+      <li><b>Сюжет:</b> одно волшебное действие → маленький пик → возврат в исходный кадр</li>
+      <li><b>Название:</b> «Lumo + глагол + чудо» + 2 эмодзи — <i>Lumo slid down a rainbow 🌈✨</i></li>
+      <li><b>Описание:</b> фраза-крючок + «New Lumo episode every day 🌙» + #lumoloops #cozy #sleep</li>
+      <li><b>Камера</b> статична, звук — тихая колыбельная + мягкие SFX</li>
+    </ul>
+  </section>
+</div>
+</body>
+</html>

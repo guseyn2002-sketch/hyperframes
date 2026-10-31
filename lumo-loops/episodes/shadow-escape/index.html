@@ -1,0 +1,690 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>Lumo's shadow tried to run away</title>
+    <script src="gsap.min.js"></script>
+    <style>
+      html,
+      body {
+        margin: 0;
+        width: 1080px;
+        height: 1920px;
+        background: #110f31;
+        overflow: hidden;
+      }
+      #root {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background: #110f31;
+      }
+      #scene {
+        position: absolute;
+        inset: 0;
+      }
+      #scene svg {
+        display: block;
+        width: 100%;
+        height: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="root"
+      data-composition-id="main"
+      data-start="0"
+      data-width="1080"
+      data-height="1920"
+      data-duration="15"
+    >
+      <audio id="sound" src="shadow.wav" data-start="0" data-duration="15" data-track-index="1" data-volume="0.9"></audio>
+      <div id="scene" class="clip" data-start="0" data-duration="15" data-track-index="0">
+        <svg viewBox="0 0 1080 1920" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#110f31" />
+              <stop offset="0.7" stop-color="#1a1847" />
+              <stop offset="1" stop-color="#231e57" />
+            </linearGradient>
+            <linearGradient id="planet" gradientUnits="userSpaceOnUse" x1="0" y1="1400" x2="0" y2="1920">
+              <stop offset="0" stop-color="#6a82b6" />
+              <stop offset="0.3" stop-color="#566c9c" />
+              <stop offset="1" stop-color="#2e3866" />
+            </linearGradient>
+            <linearGradient id="body" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#f8dcaa" />
+              <stop offset="0.3" stop-color="#f6e4c4" />
+              <stop offset="0.55" stop-color="#f2ead7" />
+              <stop offset="1" stop-color="#e9dec6" />
+            </linearGradient>
+            <radialGradient id="warm">
+              <stop offset="0" stop-color="#ffc25a" stop-opacity="0.85" />
+              <stop offset="0.4" stop-color="#ffb347" stop-opacity="0.3" />
+              <stop offset="1" stop-color="#ffb347" stop-opacity="0" />
+            </radialGradient>
+            <radialGradient id="bulbG" cx="0.38" cy="0.33">
+              <stop offset="0" stop-color="#ffdc8c" />
+              <stop offset="0.55" stop-color="#f6ad3c" />
+              <stop offset="1" stop-color="#ea932a" />
+            </radialGradient>
+            <radialGradient id="flashG">
+              <stop offset="0" stop-color="#fff6d6" stop-opacity="1" />
+              <stop offset="0.35" stop-color="#ffe39a" stop-opacity="0.55" />
+              <stop offset="1" stop-color="#ffe39a" stop-opacity="0" />
+            </radialGradient>
+            <linearGradient id="tail" x1="1" y1="0" x2="0" y2="0">
+              <stop offset="0" stop-color="#ecfbff" />
+              <stop offset="0.5" stop-color="#8fd8f0" stop-opacity="0.75" />
+              <stop offset="1" stop-color="#8fd8f0" stop-opacity="0" />
+            </linearGradient>
+            <filter id="blur" x="-100%" y="-100%" width="300%" height="300%">
+              <feGaussianBlur stdDeviation="46" />
+            </filter>
+            <path id="spark" d="M0 -10 Q1.5 -1.5 10 0 Q1.5 1.5 0 10 Q-1.5 1.5 -10 0 Q-1.5 -1.5 0 -10 Z" />
+          </defs>
+
+          <g id="cam">
+            <rect x="-40" y="-40" width="1160" height="2000" fill="url(#sky)" />
+            <ellipse cx="250" cy="600" rx="360" ry="230" fill="#33297a" opacity="0.5" filter="url(#blur)" />
+            <ellipse cx="900" cy="950" rx="300" ry="190" fill="#2d2670" opacity="0.5" filter="url(#blur)" />
+            <g id="stars"></g>
+
+            <!-- Wisp, the comet puppy, cameo -->
+            <g id="wisp" opacity="0">
+              <path d="M-20 -22 C-90 -26 -170 -10 -250 28 C-170 6 -90 8 -20 22 Z" fill="url(#tail)" />
+              <use href="#spark" fill="#fff" transform="translate(-110 2) scale(0.9)" />
+              <use href="#spark" fill="#d6f3ff" transform="translate(-170 14) scale(0.65)" />
+              <use href="#spark" fill="#fff" transform="translate(-70 -10) scale(0.6)" />
+              <circle r="44" fill="#bdeaff" opacity="0.3" />
+              <path d="M-14 -22 Q-26 -50 -4 -36 Z M14 -26 Q28 -52 6 -38 Z" fill="#eaf8ff" stroke="#eaf8ff" stroke-width="5" stroke-linejoin="round" />
+              <circle r="28" fill="#fff" />
+              <ellipse cx="-9" cy="-3" rx="4" ry="5" fill="#292340" />
+              <ellipse cx="9" cy="-3" rx="4" ry="5" fill="#292340" />
+              <circle cx="0" cy="7" r="3.5" fill="#fc9bb4" />
+            </g>
+
+            <circle cx="540" cy="2900" r="1500" fill="url(#planet)" />
+            <path d="M-960 2900 A1500 1500 0 0 1 2040 2900" fill="none" stroke="#93abdb" stroke-opacity="0.55" stroke-width="6" />
+
+            <!-- lamp post -->
+            <g id="lamp">
+              <circle id="lampGlow" cx="0" cy="-560" r="230" fill="url(#warm)" />
+              <rect x="-14" y="-520" width="28" height="526" rx="10" fill="#3a3354" />
+              <rect x="-44" y="-622" width="88" height="98" rx="16" fill="#f8d595" />
+              <rect x="-56" y="-642" width="112" height="24" rx="10" fill="#393154" />
+            </g>
+
+            <!-- the shadow -->
+            <g id="shadow">
+              <g id="shInner">
+                <g id="shFeet" opacity="0">
+                  <rect id="shFL" x="-48" y="-32" width="32" height="32" rx="14" fill="#0b0c2c" />
+                  <rect id="shFR" x="16" y="-32" width="32" height="32" rx="14" fill="#0b0c2c" />
+                </g>
+                <ellipse id="shArmL" rx="14" ry="10" fill="#0b0c2c" opacity="0" />
+                <ellipse id="shArmR" rx="14" ry="10" fill="#0b0c2c" opacity="0" />
+                <path id="shBody" d="" fill="#0b0c2c" stroke="#4a5199" stroke-linejoin="round" />
+                <circle id="shBulb" r="24" fill="#080920" stroke="#4a5199" stroke-width="2" stroke-opacity="0.7" />
+                <g id="shEyes" opacity="0">
+                  <ellipse id="shEL" rx="13.5" ry="13.5" fill="#f6ead2" />
+                  <ellipse id="shER" rx="13.5" ry="13.5" fill="#f6ead2" />
+                </g>
+              </g>
+            </g>
+
+            <!-- sleepy tree -->
+            <g id="tree">
+              <g id="treeSway">
+                <rect x="-20" y="-230" width="40" height="232" rx="10" fill="#453a5a" />
+                <circle cx="-30" cy="-320" r="108" fill="#5e928b" />
+                <circle cx="62" cy="-340" r="104" fill="#416a66" />
+                <circle cx="-4" cy="-410" r="112" fill="#5e928b" />
+                <circle cx="46" cy="-300" r="80" fill="#4d7f78" />
+                <g id="treeClosed" stroke="#24433f" stroke-width="6" fill="none" stroke-linecap="round">
+                  <path d="M-52 -330 Q-36 -318 -20 -330" />
+                  <path d="M20 -330 Q36 -318 52 -330" />
+                </g>
+                <g id="treeOpen" opacity="0">
+                  <ellipse cx="-36" cy="-330" rx="12" ry="16" fill="#f4faff" />
+                  <ellipse cx="36" cy="-330" rx="12" ry="16" fill="#f4faff" />
+                  <circle id="treePL" cx="-36" cy="-330" r="7.5" fill="#24433f" />
+                  <circle id="treePR" cx="36" cy="-330" r="7.5" fill="#24433f" />
+                </g>
+                <ellipse cx="-68" cy="-300" rx="14" ry="8" fill="#ff9aa2" opacity="0.35" />
+                <ellipse cx="68" cy="-300" rx="14" ry="8" fill="#ff9aa2" opacity="0.35" />
+              </g>
+            </g>
+
+            <g id="puffs"></g>
+
+            <!-- Lumo -->
+            <g id="lumo">
+              <g id="lInner">
+                <g id="lFeet">
+                  <rect id="lFL" x="-48" y="-32" width="32" height="32" rx="14" fill="#d6c8ac" />
+                  <rect id="lFR" x="16" y="-32" width="32" height="32" rx="14" fill="#d6c8ac" />
+                </g>
+                <ellipse id="lArmL" rx="15" ry="11" fill="#f2e6cc" opacity="0" />
+                <ellipse id="lArmR" rx="15" ry="11" fill="#f2e6cc" opacity="0" />
+                <path id="lBody" d="M0 -272 C28 -236 100 -160 100 -87 C100 -50 80 -22 40 -22 L-40 -22 C-80 -22 -100 -50 -100 -87 C-100 -160 -28 -236 0 -272 Z" fill="url(#body)" />
+                <ellipse cx="-58" cy="-104" rx="16" ry="8" fill="#e5c8b8" opacity="0.9" />
+                <ellipse cx="58" cy="-104" rx="16" ry="8" fill="#e5c8b8" opacity="0.9" />
+                <g id="lEyes">
+                  <ellipse id="leL" rx="13.5" ry="13.5" fill="#2b223b" />
+                  <ellipse id="leR" rx="13.5" ry="13.5" fill="#2b223b" />
+                </g>
+                <g id="lHappy" stroke="#2b223b" stroke-width="7" fill="none" stroke-linecap="round" opacity="0">
+                  <path d="M-44 -128 Q-29 -150 -14 -128" />
+                  <path d="M14 -128 Q29 -150 44 -128" />
+                </g>
+                <ellipse id="lMouth" cx="0" cy="-96" rx="7" ry="9" fill="#2b223b" opacity="0" />
+                <g id="lBulb">
+                  <circle id="lGlow" cx="0" cy="-298" r="100" fill="url(#warm)" />
+                  <rect x="-6" y="-280" width="12" height="12" rx="3" fill="#a08c70" />
+                  <circle id="lCore" cx="0" cy="-298" r="24" fill="url(#bulbG)" />
+                  <circle cx="-8" cy="-307" r="6" fill="#fff3d0" opacity="0.95" />
+                </g>
+              </g>
+            </g>
+
+            <g id="fx">
+              <circle id="ring" r="30" fill="none" stroke="#ffe39a" stroke-width="8" opacity="0" />
+              <g id="sparks"></g>
+              <g id="startle" stroke="#ffe39a" stroke-width="7" stroke-linecap="round" opacity="0"></g>
+              <path id="sweat" d="M0 -14 C9 0 14 7 0 14 C-14 7 -9 0 0 -14 Z" fill="#9fd0ff" opacity="0" />
+            </g>
+          </g>
+          <circle id="flashDisc" cx="540" cy="1400" r="1300" fill="url(#flashG)" opacity="0" />
+          <rect id="flashWash" x="0" y="0" width="1080" height="1920" fill="#fff6d6" opacity="0" />
+        </svg>
+      </div>
+    </div>
+
+    <script>
+      (function () {
+        const NS = "http://www.w3.org/2000/svg";
+        const T = 15;
+        const TAU = Math.PI * 2;
+        const $ = (id) => document.getElementById(id);
+        const mk = (tag, attrs, parent) => {
+          const el = document.createElementNS(NS, tag);
+          for (const k in attrs) el.setAttribute(k, attrs[k]);
+          if (parent) parent.appendChild(el);
+          return el;
+        };
+        const f2 = (v) => (Math.round(v * 100) / 100).toString();
+        const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
+        const lerp = (a, b, p) => a + (b - a) * p;
+        const seg = (t, a, b) => clamp((t - a) / (b - a), 0, 1);
+        const sine = (p) => 0.5 - 0.5 * Math.cos(Math.PI * p);
+        const outCubic = (p) => 1 - Math.pow(1 - p, 3);
+        const outQuad = (p) => 1 - (1 - p) * (1 - p);
+        const outBack = (p) => 1 + 2.6 * Math.pow(p - 1, 3) + 1.6 * Math.pow(p - 1, 2);
+        const bump = (t, a, b) => Math.sin(Math.PI * seg(t, a, b));
+        const win = (t, a, b, f) => clamp((t - a) / f, 0, 1) * clamp((b - t) / f, 0, 1);
+        const bez = (p0, p1, p2, p3, u) => {
+          const v = 1 - u;
+          return [
+            v * v * v * p0[0] + 3 * v * v * u * p1[0] + 3 * v * u * u * p2[0] + u * u * u * p3[0],
+            v * v * v * p0[1] + 3 * v * v * u * p1[1] + 3 * v * u * u * p2[1] + u * u * u * p3[1],
+          ];
+        };
+        let seed = 31102026;
+        const rnd = () => {
+          seed |= 0;
+          seed = (seed + 0x6d2b79f5) | 0;
+          let x = Math.imul(seed ^ (seed >>> 15), 1 | seed);
+          x = (x + Math.imul(x ^ (x >>> 7), 61 | x)) ^ x;
+          return ((x ^ (x >>> 14)) >>> 0) / 4294967296;
+        };
+
+        // ---------------- planet geometry (flat-ish disc, characters stand upright) ----------------
+        const CX = 540, CY = 2900, R = 1500, UNIT = 16;
+        const CH = 1.335;
+        const foot = (th) => {
+          const dx = th * UNIT;
+          return [CX + dx, CY - Math.sqrt(R * R - dx * dx) + 6];
+        };
+        const placeC = (th) => {
+          const p = foot(th);
+          return "translate(" + f2(p[0]) + " " + f2(p[1]) + ") scale(" + CH + ")";
+        };
+        const placeP = (th) => {
+          const p = foot(th);
+          return "translate(" + f2(p[0]) + " " + f2(p[1] + 4) + ")";
+        };
+        const toGlobal = (th, x, y) => {
+          const p = foot(th);
+          return [p[0] + x * CH, p[1] + y * CH];
+        };
+        const HIDE = 44;
+        const LAMP = -27, TREE = 29.6;
+
+        // ---------------- static decor ----------------
+        const stars = [];
+        const starLayer = $("stars");
+        for (let i = 0; i < 90; i++) {
+          const x = rnd() * 1080, y = rnd() * 1420;
+          const big = rnd() < 0.08;
+          const el = big
+            ? mk("use", { href: "#spark", fill: "#fff6d8", transform: "translate(" + f2(x) + " " + f2(y) + ") scale(" + f2(0.9 + rnd() * 0.9) + ")" }, starLayer)
+            : mk("circle", { cx: f2(x), cy: f2(y), r: f2(1.6 + rnd() * 3.4), fill: "#ffffff" }, starLayer);
+          stars.push({ el, k: 1 + Math.floor(rnd() * 6), ph: rnd() * TAU, base: 0.4 + rnd() * 0.6 });
+        }
+        $("lamp").setAttribute("transform", placeP(LAMP));
+        $("tree").setAttribute("transform", placeP(TREE));
+
+        const puffLayer = $("puffs");
+        const RUNS = [
+          { fn: null, t0: 3.0, t1: 4.2 },
+          { fn: null, t0: 3.25, t1: 4.95 },
+          { fn: null, t0: 5.8, t1: 6.9 },
+        ];
+        const PUFFN = 5;
+        const puffs = RUNS.map(() => {
+          const a = [];
+          for (let i = 0; i < PUFFN; i++) a.push(mk("circle", { r: 8, fill: "#cfe0ff", opacity: 0 }, puffLayer));
+          return a;
+        });
+        const sparkLayer = $("sparks");
+        const sparks = [];
+        for (let i = 0; i < 14; i++) {
+          sparks.push({ el: mk("use", { href: "#spark", fill: i % 2 ? "#ffe9a8" : "#dff1ff", opacity: 0 }, sparkLayer), a: -Math.PI * (0.05 + 0.9 * (i / 13)), sp: 110 + (i % 3) * 50 });
+        }
+        const startleLines = [];
+        for (let i = 0; i < 3; i++) startleLines.push(mk("line", { x1: 0, y1: 0, x2: 0, y2: 0 }, $("startle")));
+
+        // ---------------- body outline sampled once (matches Lumo's cone-drop body) ----------------
+        const half = [];
+        for (let i = 0; i <= 20; i++) half.push(bez([0, -272], [28, -236], [100, -160], [100, -87], i / 20));
+        for (let i = 1; i <= 12; i++) half.push(bez([100, -87], [100, -50], [80, -22], [40, -22], i / 12));
+        half.push([20, -22]);
+        half.push([0, -22]);
+        const OUT = half.concat(half.slice(1, -1).reverse().map((p) => [-p[0], p[1]]));
+        const TH = 0.26;
+        // standing (x,y) -> position when lying flat on the ground, relative to the base's feet
+        function lying(x, y, LS, B) {
+          const v = -y, w = x;
+          const u = (v - 22) * LS * CH;
+          const phi = B.ab + u / B.Rr;
+          const r = B.Rr - 4 + w * TH * CH;
+          return [(CX + r * Math.sin(phi) - B.x) / CH, (CY - r * Math.cos(phi) - B.y) / CH];
+        }
+        function mapPt(x, y, k, LS, B) {
+          const L = lying(x, y, LS, B);
+          const vn = clamp((-y - 22) / 250, 0, 1);
+          const kk = clamp(1.5 * k - 0.5 * (1 - vn), 0, 1);
+          const aL = Math.atan2(L[1], L[0]), rL = Math.hypot(L[0], L[1]);
+          const aS = Math.atan2(y, x), rS = Math.hypot(x, y);
+          const a = lerp(aL, aS, kk), r = lerp(rL, rS, kk);
+          return [r * Math.cos(a), r * Math.sin(a), kk];
+        }
+
+        // ---------------- choreography (positions in 16px units from planet centre) ----------------
+        const movedTime = (t) => (t < 6.325 ? 0 : t < 9.0 ? t - 6.325 : t < 9.8 ? 2.675 : Math.min(3.5, 2.675 + (t - 9.8)));
+        const stepE = (f) => sine(clamp(f / 0.7, 0, 1));
+        function lmTheta(t) {
+          if (t < 3.25) return -6;
+          if (t < 4.95) return -6 + 52 * Math.pow(seg(t, 3.25, 4.95), 1.5);
+          if (t < 6.325) return 60;
+          if (t <= 10.7) {
+            const ph = movedTime(t) / 0.5;
+            const n = Math.floor(ph);
+            return 46 - (35 / 7) * (n + stepE(ph - n));
+          }
+          if (t < 11.8) return 11;
+          if (t < 12.5) return lerp(11, -6, sine(seg(t, 11.8, 12.5)));
+          return -6;
+        }
+        function shTheta(t) {
+          if (t < 2.2) return -6;
+          if (t < 3.0) return lerp(-6, 11, sine(seg(t, 2.2, 3.0)));
+          if (t < 4.2) return 11 + 35 * Math.pow(seg(t, 3.0, 4.2), 1.7);
+          if (t < 5.8) return 60;
+          if (t < 7.0) return lerp(-46, -6, outCubic(seg(t, 5.8, 7.0)));
+          return -6;
+        }
+        RUNS[0].fn = shTheta;
+        RUNS[1].fn = lmTheta;
+        RUNS[2].fn = shTheta;
+        function shK(t) {
+          if (t < 1.35) return 0;
+          if (t < 1.95) return 0.3 * sine(seg(t, 1.35, 1.95));
+          if (t < 2.1) return 0.3 + 0.025 * Math.sin((t - 1.95) * 40) * (1 - seg(t, 1.95, 2.1));
+          if (t < 2.8) return lerp(0.3, 1, outBack(seg(t, 2.1, 2.8)));
+          if (t < 11.2) return 1;
+          if (t < 11.55) return Math.max(0, 1 - outBack(seg(t, 11.2, 11.55)));
+          if (t < 13.6) return 0;
+          if (t < 14.6) return 0.22 * bump(t, 13.6, 14.6) * (0.7 + 0.3 * Math.sin((t - 13.6) * 30));
+          return 0;
+        }
+        const vel = (fn, t) => (fn(t + 0.03) - fn(t - 0.03)) / 0.06;
+        const mix = (cur, target, w) => [lerp(cur[0], target[0], w), lerp(cur[1], target[1], w)];
+
+        // ---------------- Lumo ----------------
+        function drawLumo(t) {
+          const th = lmTheta(t);
+          const hidden = Math.abs(th) > HIDE;
+          $("lumo").setAttribute("opacity", hidden ? 0 : 1);
+          if (hidden) return null;
+          const br = Math.sin((TAU * 5 * t) / T);
+          const v = vel(lmTheta, t);
+          const runW = win(t, 3.25, 4.95, 0.1) * clamp(Math.abs(v) / 25, 0, 1);
+          const creepW = win(t, 6.3, 10.7, 0.15);
+          const walkW = win(t, 11.8, 12.5, 0.1);
+          let lean = 0, sx = 1 - 0.007 * br, sy = 1 + 0.014 * br, hop = 0, fl = 0, fr = 0, armRun = 0, armUp = 0;
+          const ph = TAU * 3.4 * t;
+          if (runW > 0) {
+            fl += Math.max(0, Math.sin(ph)) * 18 * runW;
+            fr += Math.max(0, -Math.sin(ph)) * 18 * runW;
+            hop += Math.abs(Math.sin(ph)) * 9 * runW;
+            lean += clamp(v * 0.17, -10, 10) * runW;
+            sy *= 1 - 0.03 * Math.cos(2 * ph) * runW;
+            armRun = runW;
+          }
+          const notice = bump(t, 2.8, 3.3);
+          hop += 16 * Math.sin(Math.PI * seg(t, 2.8, 3.08));
+          sy *= 1 + 0.07 * Math.sin(Math.PI * seg(t, 2.8, 3.0)) - 0.12 * bump(t, 3.1, 3.25);
+          sx *= 1 - 0.04 * Math.sin(Math.PI * seg(t, 2.8, 3.0)) + 0.1 * bump(t, 3.1, 3.25);
+          armUp += 0.7 * notice;
+          if (creepW > 0) {
+            const phc = movedTime(t) / 0.5;
+            const n = Math.floor(phc);
+            const lift = Math.sin(Math.PI * clamp((phc - n) / 0.7, 0, 1)) * 20;
+            if (n % 2 === 0) fl += lift * creepW; else fr += lift * creepW;
+            lean -= 4 * creepW;
+            sy *= 1 - 0.07 * creepW;
+            sx *= 1 + 0.04 * creepW;
+          }
+          const charge = seg(t, 10.7, 11.2);
+          const chg = t >= 10.7 && t < 11.2 ? 1 : 0;
+          sy *= 1 - 0.2 * sine(charge) * chg;
+          sx *= 1 + 0.12 * sine(charge) * chg;
+          const jit = chg * 2.4 * Math.sin(t * 95) * charge;
+          const jump = Math.sin(Math.PI * seg(t, 11.2, 11.75));
+          hop += 52 * jump;
+          sy *= 1 + 0.1 * bump(t, 11.2, 11.4) - 0.1 * bump(t, 11.7, 11.85);
+          armUp += win(t, 11.2, 11.95, 0.1);
+          if (walkW > 0) {
+            const pw = TAU * 3 * t;
+            fl += Math.max(0, Math.sin(pw)) * 12 * walkW;
+            fr += Math.max(0, -Math.sin(pw)) * 12 * walkW;
+            hop += Math.abs(Math.sin(pw)) * 5 * walkW;
+            lean -= 4 * walkW;
+          }
+          if (t >= 12.55 && t < 13.2) {
+            const q = (t - 12.55) / 0.325;
+            hop += 26 * Math.abs(Math.sin(Math.PI * q));
+            sy *= 1 + 0.06 * Math.abs(Math.sin(Math.PI * q + 1.5));
+          }
+          $("lInner").setAttribute("transform", "translate(" + f2(jit) + " " + f2(-hop) + ") rotate(" + f2(lean) + ") scale(" + f2(sx) + " " + f2(sy) + ")");
+          $("lumo").setAttribute("transform", placeC(th));
+          $("lFL").setAttribute("transform", "translate(0 " + f2(-fl) + ")");
+          $("lFR").setAttribute("transform", "translate(0 " + f2(-fr) + ")");
+
+          const sw = Math.sin(ph) * 14;
+          const arm = (el, side) => {
+            const rx = side * 104, ry = -112 + side * sw * armRun;
+            const ux = side * 116, uy = -190;
+            const w = clamp(armUp, 0, 1);
+            const rw = clamp(armRun, 0, 1);
+            el.setAttribute("cx", f2(lerp(rx, ux, w)));
+            el.setAttribute("cy", f2(lerp(ry, uy, w)));
+            el.setAttribute("opacity", f2(clamp(rw + w, 0, 1)));
+          };
+          arm($("lArmL"), -1);
+          arm($("lArmR"), 1);
+
+          const idleGaze = [1.6 * Math.sin((TAU * 2 * t) / T), -3 + Math.sin((TAU * 3 * t) / T)];
+          let gz = idleGaze;
+          gz = mix(gz, [0, -5], win(t, 1.4, 2.75, 0.3));
+          gz = mix(gz, [6, 1], win(t, 2.75, 3.3, 0.05));
+          gz = mix(gz, [6, 0], win(t, 3.3, 4.95, 0.1));
+          gz = mix(gz, [-6, 3], win(t, 6.3, 11.8, 0.15));
+          gz = mix(gz, [-4, 4], win(t, 11.8, 12.5, 0.1));
+          const happy = win(t, 11.35, 13.25, 0.12);
+          const blink = Math.max(bump(t, 0.9, 1.06), bump(t, 13.9, 14.06), bump(t, 10.1, 10.25));
+          const wide = 1 + 0.18 * notice + 0.08 * win(t, 9.0, 9.8, 0.1);
+          let tall = 1 + 0.3 * notice + 0.12 * win(t, 9.0, 9.8, 0.1);
+          tall *= 1 - 0.5 * sine(charge) * chg;
+          const open = Math.max(0.08, 1 - blink);
+          [["leL", -29], ["leR", 29]].forEach((e) => {
+            $(e[0]).setAttribute("transform", "translate(" + f2(e[1] + gz[0]) + " " + f2(-133 + gz[1]) + ") scale(" + f2(wide) + " " + f2(tall * open) + ")");
+            $(e[0]).setAttribute("opacity", f2(1 - happy));
+          });
+          $("lHappy").setAttribute("opacity", f2(happy));
+          $("lMouth").setAttribute("opacity", f2(clamp(notice * 1.3, 0, 1) * (1 - happy)));
+          $("lMouth").setAttribute("transform", "translate(" + f2(gz[0] * 0.5) + " 0)");
+
+          const sway = -clamp(v * 0.6, -26, 26) * (1 - creepW * 0.6);
+          $("lBulb").setAttribute("transform", "translate(" + f2(sway) + " " + f2(-Math.abs(v) * 0.05) + ")");
+          const pulse = 0.88 + 0.08 * Math.sin((TAU * 6 * t) / T);
+          let glow = pulse;
+          glow *= 1 - 0.86 * win(t, 6.25, 10.75, 0.25);
+          glow *= 1 + 0.5 * notice;
+          glow += 1.0 * sine(charge) * chg;
+          glow += 1.3 * Math.max(0, 1 - seg(t, 11.2, 11.95)) * (t >= 11.2 ? 1 : 0);
+          const gr = 100 + 80 * sine(charge) * chg + 170 * (t >= 11.2 ? Math.max(0, 1 - seg(t, 11.2, 11.95)) : 0) + 26 * notice;
+          $("lGlow").setAttribute("opacity", f2(clamp(glow, 0, 1)));
+          $("lGlow").setAttribute("r", f2(gr));
+          $("lCore").setAttribute("transform", "translate(0 -298) scale(" + f2(0.8 + 0.2 * clamp(glow, 0, 1.6)) + ") translate(0 298)");
+          $("lCore").setAttribute("opacity", f2(0.55 + 0.45 * clamp(glow * 1.2, 0, 1)));
+          return { th, sy, sway, hop, notice };
+        }
+
+        // ---------------- shadow ----------------
+        function drawShadow(t) {
+          const th = shTheta(t);
+          const k = shK(t);
+          const hidden = Math.abs(th) > HIDE;
+          $("shadow").setAttribute("opacity", hidden ? 0 : 1);
+          if (hidden) return;
+          const v = vel(shTheta, t);
+          const br = Math.sin((TAU * 5 * t) / T);
+          const standing = clamp((k - 0.55) / 0.35, 0, 1);
+          const runW = (win(t, 3.0, 4.2, 0.05) + win(t, 5.8, 7.0, 0.05)) * clamp(Math.abs(v) / 22, 0, 1);
+          let lean = 0, sx = 1, sy = 1, hop = 0, fl = 0, fr = 0, armRun = 0, armUp = 0;
+          const ph = TAU * 3.6 * t;
+          if (runW > 0) {
+            fl += Math.max(0, Math.sin(ph)) * 18 * runW;
+            fr += Math.max(0, -Math.sin(ph)) * 18 * runW;
+            hop += Math.abs(Math.sin(ph)) * 10 * runW;
+            lean += clamp(v * 0.16, -12, 12) * runW;
+            sy *= 1 - 0.035 * Math.cos(2 * ph) * runW;
+            armRun = runW;
+          }
+          const ant = bump(t, 2.86, 3.02);
+          sy *= 1 - 0.14 * ant;
+          sx *= 1 + 0.08 * ant;
+          sy *= 1 - 0.04 * bump(t, 2.8, 2.95);
+          const pant = win(t, 7.0, 7.9, 0.12);
+          lean += 13 * pant;
+          sy *= 1 - 0.08 * pant + 0.03 * pant * Math.sin(TAU * 3 * t);
+          const wipe = win(t, 7.9, 8.4, 0.1);
+          armUp += wipe;
+          if (t >= 8.4 && t < 9.0) {
+            const q = (t - 8.4) / 0.3;
+            hop += 18 * Math.abs(Math.sin(Math.PI * q));
+            sy *= 1 + 0.06 * Math.abs(Math.sin(Math.PI * q + 1.4));
+            lean += 5 * Math.sin(TAU * q);
+          }
+          const st = win(t, 10.85, 11.2, 0.05);
+          sy *= 1 + 0.1 * st;
+          lean -= 8 * st;
+          fl += 12 * st;
+          const LS = 1.25 * (1 + 0.03 * br);
+          const bp0 = foot(th);
+          const dx = bp0[0] - CX;
+          const B = { x: bp0[0], y: bp0[1], Rr: Math.hypot(dx, CY - bp0[1]), ab: Math.asin(dx / Math.hypot(dx, CY - bp0[1])) };
+          $("shadow").setAttribute("transform", placeC(th));
+          $("shInner").setAttribute("transform", "translate(0 " + f2(-hop) + ") rotate(" + f2(lean * standing) + ") scale(" + f2(lerp(1, sx, standing)) + " " + f2(lerp(1, sy, standing)) + ")");
+
+          // lying coordinates are in screen px, the group is scaled by CH -> divide
+          const Bn = { x: B.x, y: B.y, Rr: B.Rr, ab: B.ab };
+          const pts = OUT.map((p) => {
+            const m = mapPt(p[0], p[1], k, LS, Bn);
+            return m;
+          });
+          let d = "";
+          for (let i = 0; i < pts.length; i++) d += (i ? "L" : "M") + f2(pts[i][0]) + " " + f2(pts[i][1]);
+          const body = $("shBody");
+          body.setAttribute("d", d + "Z");
+          body.setAttribute("fill-opacity", f2(lerp(0.6, 0.97, clamp(k * 1.25, 0, 1))));
+          body.setAttribute("stroke-width", f2(3.5 * clamp((k - 0.2) / 0.5, 0, 1)));
+          body.setAttribute("stroke-opacity", f2(0.85 * clamp((k - 0.2) / 0.5, 0, 1)));
+
+          const bp = mapPt(0, -298, k, LS, Bn);
+          $("shBulb").setAttribute("transform", "translate(" + f2(bp[0]) + " " + f2(bp[1]) + ") scale(" + f2(0.35 + 0.65 * k) + ")");
+          $("shBulb").setAttribute("opacity", f2(0.4 + 0.6 * k));
+
+          $("shFeet").setAttribute("opacity", f2(standing));
+          $("shFL").setAttribute("transform", "translate(0 " + f2(-fl) + ")");
+          $("shFR").setAttribute("transform", "translate(0 " + f2(-fr) + ")");
+
+          const sw = Math.sin(ph) * 14;
+          const arm = (el, side) => {
+            const rw = clamp(armRun, 0, 1), w = clamp(armUp, 0, 1);
+            const x = lerp(side * 104, side === 1 ? 112 : -104, w);
+            const y = lerp(-112 + side * sw * armRun, side === 1 ? -270 : -112, w);
+            el.setAttribute("cx", f2(x));
+            el.setAttribute("cy", f2(y));
+            el.setAttribute("opacity", f2(clamp(rw + (side === 1 ? w : 0), 0, 1) * standing));
+          };
+          arm($("shArmL"), -1);
+          arm($("shArmR"), 1);
+
+          let dir = 0;
+          dir = lerp(dir, -0.9, win(t, 2.5, 3.0, 0.1));
+          dir = lerp(dir, 0.9, win(t, 3.0, 4.2, 0.05));
+          dir = lerp(dir, 0.9, win(t, 5.8, 6.55, 0.05));
+          dir = lerp(dir, -1, win(t, 6.55, 7.4, 0.1));
+          dir = lerp(dir, -0.7, win(t, 7.4, 9.0, 0.15));
+          dir = lerp(dir, 1, win(t, 9.0, 9.6, 0.08));
+          dir = lerp(dir, -0.7, win(t, 9.6, 10.85, 0.1));
+          dir = lerp(dir, 1, win(t, 10.85, 11.2, 0.04));
+          const blink = Math.max(bump(t, 8.0, 8.15), bump(t, 9.7, 9.85));
+          const wideE = 1 + 0.2 * st + 0.1 * bump(t, 2.8, 3.0);
+          const eo = Math.max(0.08, 1 - blink) * wideE * (1 - 0.35 * pant);
+          const eyeP = [mapPt(-29, -133, k, LS, Bn), mapPt(29, -133, k, LS, Bn)];
+          [["shEL", 0], ["shER", 1]].forEach((e) => {
+            const p = eyeP[e[1]];
+            $(e[0]).setAttribute("transform", "translate(" + f2(p[0] + 7 * dir) + " " + f2(p[1] + (pant ? 6 * pant : 0)) + ") scale(" + f2(wideE) + " " + f2(eo) + ")");
+          });
+          $("shEyes").setAttribute("opacity", f2(clamp((k - 0.62) / 0.2, 0, 1)));
+          return { th, hop, lean, sy };
+        }
+
+        // ---------------- tree, lamp, sky, wisp, fx ----------------
+        function drawWorld(t, lumo) {
+          const w15 = (k, ph) => Math.sin((TAU * k * t) / T + (ph || 0));
+          for (const s of stars) s.el.setAttribute("opacity", f2(s.base * (0.65 + 0.35 * w15(s.k, s.ph))));
+          $("lampGlow").setAttribute("opacity", f2(0.82 + 0.08 * w15(10) + 0.05 * w15(17, 1)));
+          $("treeSway").setAttribute("transform", "rotate(" + f2(1.0 * w15(2)) + ")");
+          const wake = Math.max(bump(t, 3.45, 4.7), bump(t, 7.5, 8.5));
+          const look = t < 6 ? 1 : -1;
+          $("treeOpen").setAttribute("opacity", f2(clamp(wake * 2.4, 0, 1)));
+          $("treeClosed").setAttribute("opacity", f2(1 - clamp(wake * 2.4, 0, 1)));
+          $("treePL").setAttribute("transform", "translate(" + f2(5 * look) + " 1)");
+          $("treePR").setAttribute("transform", "translate(" + f2(5 * look) + " 1)");
+
+          const wu = seg(t, 4.5, 6.4);
+          const wisp = $("wisp");
+          if (wu > 0 && wu < 1) {
+            const x = lerp(-260, 1340, wu);
+            const y = 600 - 130 * Math.sin(Math.PI * wu) + 12 * Math.sin(TAU * 3 * wu);
+            wisp.setAttribute("opacity", 1);
+            wisp.setAttribute("transform", "translate(" + f2(x) + " " + f2(y) + ")");
+          } else wisp.setAttribute("opacity", 0);
+
+          RUNS.forEach((run, ri) => {
+            for (let i = 0; i < PUFFN; i++) {
+              const el = puffs[ri][i];
+              const tj = Math.floor(t / 0.11) * 0.11 - i * 0.11;
+              const age = t - tj;
+              if (tj < run.t0 + 0.1 || tj > run.t1 || age > 0.5) { el.setAttribute("opacity", 0); continue; }
+              const th = run.fn(tj);
+              if (Math.abs(th) > HIDE) { el.setAttribute("opacity", 0); continue; }
+              const g = toGlobal(th, -50 + 20 * age, -6 - 24 * age);
+              el.setAttribute("cx", f2(g[0]));
+              el.setAttribute("cy", f2(g[1]));
+              el.setAttribute("r", f2(8 + 26 * age / 0.5));
+              el.setAttribute("opacity", f2(0.34 * (1 - age / 0.5)));
+            }
+          });
+
+          const sl = bump(t, 2.82, 3.3);
+          const stg = $("startle");
+          stg.setAttribute("opacity", f2(clamp(sl * 2, 0, 1)));
+          if (sl > 0) {
+            const c = toGlobal(-6, 0, -340 - 16 * Math.sin(Math.PI * seg(t, 2.8, 3.08)));
+            const rr = 34 + 30 * seg(t, 2.82, 3.3);
+            [-0.9, 0, 0.9].forEach((a, i) => {
+              const ang = -Math.PI / 2 + a;
+              startleLines[i].setAttribute("x1", f2(c[0] + Math.cos(ang) * (rr + 20)));
+              startleLines[i].setAttribute("y1", f2(c[1] + Math.sin(ang) * (rr + 20)));
+              startleLines[i].setAttribute("x2", f2(c[0] + Math.cos(ang) * (rr + 60)));
+              startleLines[i].setAttribute("y2", f2(c[1] + Math.sin(ang) * (rr + 60)));
+            });
+          }
+
+          const sp = seg(t, 7.15, 7.9);
+          const sweat = $("sweat");
+          if (sp > 0 && sp < 1) {
+            const g = toGlobal(-6, 80 + 80 * sp, -230 - 100 * 4 * sp * (1 - sp) + 170 * sp * sp);
+            sweat.setAttribute("transform", "translate(" + f2(g[0]) + " " + f2(g[1]) + ") scale(" + f2(1.2 - 0.3 * sp) + ")");
+            sweat.setAttribute("opacity", f2(0.9 * Math.sin(Math.PI * sp)));
+          } else sweat.setAttribute("opacity", 0);
+
+          const tf = t - 11.2;
+          const pc = toGlobal(-6, 90, -10);
+          sparks.forEach((s) => {
+            const p = seg(t, 11.22, 11.95);
+            if (p <= 0 || p >= 1) return s.el.setAttribute("opacity", 0);
+            const dd = outQuad(p) * s.sp;
+            s.el.setAttribute("transform", "translate(" + f2(pc[0] + Math.cos(s.a) * dd) + " " + f2(pc[1] + Math.sin(s.a) * dd + 80 * p * p) + ") scale(" + f2(1.4 - 0.9 * p) + ")");
+            s.el.setAttribute("opacity", f2(1 - p));
+          });
+          const bulbPos = lumo ? toGlobal(lumo.th, lumo.sway, -298 * lumo.sy - lumo.hop) : toGlobal(11, 0, -298);
+          const rp = seg(t, 11.2, 11.7);
+          const ring = $("ring");
+          if (rp > 0 && rp < 1) {
+            ring.setAttribute("cx", f2(bulbPos[0]));
+            ring.setAttribute("cy", f2(bulbPos[1]));
+            ring.setAttribute("r", f2(30 + 420 * outCubic(rp)));
+            ring.setAttribute("stroke-width", f2(11 * (1 - rp)));
+            ring.setAttribute("opacity", f2(0.85 * (1 - rp)));
+          } else ring.setAttribute("opacity", 0);
+          const fd = $("flashDisc");
+          let fo = 0, wash = 0;
+          if (t >= 10.7 && t < 11.2) fo = 0.2 * sine(seg(t, 10.7, 11.2));
+          if (t >= 11.2) {
+            fo = Math.max(0, 1 - seg(t, 11.2, 11.95)) * 0.7;
+            wash = 0.26 * Math.pow(1 - seg(t, 11.2, 11.45), 2);
+          }
+          fd.setAttribute("opacity", f2(clamp(fo, 0, 1)));
+          fd.setAttribute("cx", f2(bulbPos[0]));
+          fd.setAttribute("cy", f2(bulbPos[1]));
+          $("flashWash").setAttribute("opacity", f2(wash));
+          const shake = t >= 11.2 && t < 11.65 ? 7 * Math.exp(-tf * 13) * Math.sin(tf * 75) : 0;
+          $("cam").setAttribute("transform", "translate(" + f2(shake) + " " + f2(-shake * 0.6) + ")");
+        }
+
+        function draw(t) {
+          const l = drawLumo(t);
+          drawShadow(t);
+          drawWorld(t, l);
+        }
+
+        const S = { t: 0 };
+        const tl = gsap.timeline({ paused: true });
+        tl.to(S, { t: T, duration: T, ease: "none", onUpdate: () => draw(S.t) }, 0);
+        draw(0);
+        window.__timelines["main"] = tl;
+      })();
+    </script>
+  </body>
+</html>
